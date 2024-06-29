@@ -13,10 +13,12 @@ import projet.pfe.smartop.daos.OperationDAO;
 import projet.pfe.smartop.dtos.OperationDTO;
 import projet.pfe.smartop.dtos.UtilisateurDTO;
 import projet.pfe.smartop.entites.Operation;
+import projet.pfe.smartop.entites.Utilisateur;
 import projet.pfe.smartop.exceptions.BusinessException;
 import projet.pfe.smartop.services.IOperationservice;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -146,6 +148,16 @@ public class IOperationserviceimpl implements IOperationservice {
 
     @Override
     public OperationDTO exportOP() {
+        return null;
+    }
+
+    @Override
+    public OperationDTO chercherOPparID(Integer id) {
+        Optional<Operation> optionalOP = this.operationDAO.findById(id);
+        if (optionalOP.isPresent()) {
+            Operation OPBo = optionalOP.get();
+            return customModelMapper.modelMapper().map(OPBo, OperationDTO.class);
+        }
         return null;
     }
 }

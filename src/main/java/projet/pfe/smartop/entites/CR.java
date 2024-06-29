@@ -2,10 +2,7 @@ package projet.pfe.smartop.entites;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import projet.pfe.smartop.enums.EnumstatutCR;
@@ -18,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Entity
+@ToString(exclude = "operation")
 public class CR implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +26,7 @@ public class CR implements Serializable {
     private EnumstatutCR enumstatutCR;
     private String resume;
     private String equipementImp;
-    @ManyToOne(targetEntity = Operation.class)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "operation_id",referencedColumnName = "id")
     @JsonIgnore
     private Operation operation;

@@ -14,4 +14,5 @@ public interface IOperationservice {
     OperationDTO findOPbycategorieop(String categorie);
     List<OperationDTO> getOP();
     OperationDTO exportOP();
+    OperationDTO chercherOPparID(Integer id);
 }

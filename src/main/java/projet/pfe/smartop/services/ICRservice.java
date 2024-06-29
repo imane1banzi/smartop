@@ -10,9 +10,9 @@ public interface ICRservice {
     CRDTO addCR(CRDTO crdto);
     CRDTO updateCR(Integer id,CRDTO crdto);
     String deleteCR(Integer id);
-    CRDTO findCRbyIDOP(Integer id);
-    CRDTO findCRbydemandeur(String demandeur);
-    CRDTO findCRbycategorieop(String categorie);
+    List<CRDTO> findCRbyIDOP(Integer id);
+    List<CRDTO> findCRbydemandeur(String demandeur);
+    List<CRDTO> findCRbycategorieop(String categorie);
     List<CRDTO> getCR();
     CRDTO exportCR();
 }

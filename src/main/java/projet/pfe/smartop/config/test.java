@@ -5,10 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import projet.pfe.smartop.dtos.CRDTO;
 import projet.pfe.smartop.dtos.OperationDTO;
 import projet.pfe.smartop.dtos.UtilisateurDTO;
 import projet.pfe.smartop.enums.EnumStatutOP;
 import projet.pfe.smartop.enums.EnumType_utilisateur;
+import projet.pfe.smartop.enums.EnumstatutCR;
+import projet.pfe.smartop.services.ICRservice;
 import projet.pfe.smartop.services.IOperationservice;
 import projet.pfe.smartop.services.IUtilisateurservice;
 
@@ -20,6 +23,7 @@ import java.util.Date;
 public class test {
     private final IUtilisateurservice iUtilisateurservice;
     private final IOperationservice iOperationservice;
+    private final ICRservice icRservice;
     @Bean
     CommandLineRunner commandLineRunner() {
 
@@ -85,8 +89,28 @@ System.out.println(iOperationservice.findOPbydemandeur("testdemandeur"));
 
             iOperationservice.deleteOP(1);
             System.out.println(iOperationservice.findOPbycategorieop("testcategorie2"));
-            System.out.println(iOperationservice.getOP());*/
             System.out.println(iOperationservice.getOP());
+            icRservice.addCR(CRDTO.builder().
+                            dateFin(new Date()).
+                            enumstatutCR(EnumstatutCR.TERMINESUCCES).
+                            resume("testresume2").
+                            equipementImp("testequipement2").
+                            operation(iOperationservice.chercherOPparID(2)).build()
+                    );
+            icRservice.updateCR(1,CRDTO.builder().
+                    dateFin(new Date()).
+                    enumstatutCR(EnumstatutCR.TERMINESUCCES).
+                    resume("testresume1").
+                    equipementImp("testequipement1").
+                    operation(iOperationservice.chercherOPparID(2)).build());
+            icRservice.deleteCR(1);
+             System.out.println(icRservice.findCRbyIDOP(2));
+              System.out.println(icRservice.findCRbydemandeur("testdemandeur2"));
+              System.out.println(icRservice.findCRbycategorieop("testcategorie"));
+              System.out.println(icRservice.getCR());
+            */
+
+
         };
     }
 }
